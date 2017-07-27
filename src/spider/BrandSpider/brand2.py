@@ -28,8 +28,26 @@ class Spider:
 				secondCategoryItems = self.resolveSecondCategoryContent(secondCategoryContent)
 
 				for secondCategoryItem in secondCategoryItems:
-					print secondCategoryItem[0]
-					print secondCategoryItem[1]
+
+					thirdCategory = secondCategoryItem[1]
+
+					thirdCategoryContent = self.getPageContext('https:'+str(secondCategoryItem[0]))
+					realUrl = self.getRealUrl(thirdCategoryContent)
+					realThirdCategoryContent = self.getPageContext('https:'+str(realUrl))
+					# print realUrl
+					index = self.getMaxPage(realThirdCategoryContent)
+
+					# 解析当前页
+
+					realThridCategoryItems = self.resolveLastPage(realThirdCategoryContent)
+
+					for realThirdCategoryItem in realThridCategoryItems:
+						print realThirdCategoryItem[0]
+						print realThirdCategoryItem[1]
+
+					# if index > 0:
+					# 	for i in range(1,index):
+					# 		lastPageContent = self.getPageContext('https:'+str(realUrl[:-5]+'-'+i+'.html'))
 					
 		
 
@@ -72,7 +90,37 @@ class Spider:
 			return re.findall(pattern,div[0])
 		except:
 			# print '忽略解析品牌页面出错问题'
-			return []		
+			return []	
+
+	def getRealUrl(self,content):
+		try:
+			pattern = re.compile('.*?<a href="(.*?)">.*?品牌大全></a>.*?')
+			return re.findall(pattern,content)[0]
+		except:
+			print "解析出错"
+			return []	
+
+	def getMaxPage(self,content):
+		# <div class="pages clear"><a class="a1">182条</a> <a href="d5802.html" class="a1">上一页</a> <span>1</span> <a href="d5802-2.html">2</a> <a href="d5802-3.html">3</a> <a href="d5802-4.html">4</a> <a href="d5802-5.html">5</a> ..<a href="d5802-7.html">7</a> <a href="d5802-2.html" class="a1">下一页</a></div>
+		try:
+			pattern = re.compile('.*?\.\.<a href=".*?">(\d)</a>.*?')
+			index = re.findall(pattern,content)
+			if len(index) == 0:
+				return 0
+			else:
+				return index[0]
+		except:
+			print "获取最大值出错"
+			return []
+
+	def resolveLastPage(self,content):
+		# <div class="c03"><p>名称：<a href="
+		try:
+			pattern = re.compile('.*?<div class="c03"><p>名称：<a href=".*?">(.*?)</a></p><p>口碑：.*?<a class="c07" href="(.*?)">\> 详情</a>.*?')
+			return re.findall(pattern,content)
+		except:
+			print "解析出错"
+			return []	
 
 spider = Spider()
 spider.run()
