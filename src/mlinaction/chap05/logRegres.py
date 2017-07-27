@@ -1,0 +1,4 @@
+def loadDataSet():
+	dataMat = []; labelMat = []
+	
+	
