@@ -34,22 +34,134 @@ class Spider:
 					thirdCategoryContent = self.getPageContext('https:'+str(secondCategoryItem[0]))
 					realUrl = self.getRealUrl(thirdCategoryContent)
 					realThirdCategoryContent = self.getPageContext('https:'+str(realUrl))
-					# print realUrl
 					index = self.getMaxPage(realThirdCategoryContent)
 
 					# 解析当前页
-
 					realThridCategoryItems = self.resolveLastPage(realThirdCategoryContent)
 
 					for realThirdCategoryItem in realThridCategoryItems:
-						print realThirdCategoryItem[0]
-						print realThirdCategoryItem[1]
+						brandCategory = realThirdCategoryItem[1] # 名称
 
-					# if index > 0:
-					# 	for i in range(1,index):
-					# 		lastPageContent = self.getPageContext('https:'+str(realUrl[:-5]+'-'+i+'.html'))
-					
-		
+						aboutContent = self.getPageContext('https:'+str(realThirdCategoryItem[0]))
+						aboutItems = self.resolveAboutPage(aboutContent)
+
+						brandContent = self.getPageContext('https:'+str(aboutItems))
+						
+						info = self.resolveBrandField(brandContent)
+						
+						print info[0],',',info[1],',',info[2],',',info[3],',',info[4],',',info[5],',',info[6],',',info[7],',',info[8],',',info[9],',',info[10],',',info[11],',',info[12]
+	
+	def resolveDan(self,content):
+		try:
+			pattern = re.compile('.*?<p><font color="#4993F4">主体规模：</font>(.*?)</p>.*?')
+			return re.findall(pattern,content)[0]
+		except:
+			return 'null'
+
+	def resolveZhuTiGuiMo(self,content):
+		try:
+			pattern = re.compile('.*?<p><font color="#4993F4">主体规模：</font>(.*?)</p>.*?')
+			return re.findall(pattern,content)
+		except:
+			return 'null'
+
+	def resolveBrandField(self,content):
+		zhutiguimo = 'null'
+		danweixingzhi = 'null'
+		zichanleixing = 'null'
+		chuangjianshijian = 'null'
+		boss = 'null'
+		address = 'null'
+		zizhirongyu = 'null'
+		score = 0
+		price = 'null'
+		rank = 'null'
+		sales = 'null'
+		renqi = 'null'
+
+		try:
+			pattern = re.compile('.*?<p style="height: 30px;line-height: 20px;">(.*?)</p>.*?')
+			result = re.findall(pattern,content)
+			if len(result) >0 :
+				name = result[0]
+
+			pattern = re.compile('.*?<p><font color="#4993F4">主体规模：</font>(.*?)</p>.*?')
+			result = re.findall(pattern,content)
+			if len(result) >0 :
+				zhutiguimo = result[0]
+
+			pattern = re.compile('.*?<p><font color="#4993F4">单位性质：</font>(.*?)</p>.*?')
+			result = re.findall(pattern,content)
+			if len(result) >0 :
+				danweixingzhi = result[0]
+			
+			pattern = re.compile('.*?<p><font color="#4993F4">资产类型：</font>(.*?)</p>.*?')
+			result = re.findall(pattern,content)
+			if len(result) >0 :
+				zichanleixing = result[0]
+
+			pattern = re.compile('.*?<p><font color="#4993F4">成立于：</font>(.*?)</p>.*?')
+			result = re.findall(pattern,content)
+			if len(result) >0 :
+				chuangjianshijian = result[0]
+
+			pattern = re.compile('.*?<p><font color="#4993F4">创办人、主要负责人或法人：</font>(.*?)</p>.*?')
+			result = re.findall(pattern,content)
+			if len(result) >0 :
+				boss = result[0]
+
+			pattern = re.compile('.*?<p><font color="#4993F4">发源地或总部所在地：</font>(.*?)</p>.*?')
+			result = re.findall(pattern,content)
+			if len(result) >0 :
+				address = result[0]
+
+			pattern = re.compile('.*?<p class="x"><span>*</span><font color="#4993F4">资质荣誉：</font>(.*?)</p>.*?')
+			result = re.findall(pattern,content)
+			if len(result) >0 :
+				zizhirongyu = result[0]
+			
+			# <p class="zf">总分：92分</p>
+			pattern = re.compile('.*?<p class="zf">总分：(.*?)分</p>.*?')
+			result = re.findall(pattern,content)
+			if len(result) >0 :
+				score = result[0]
+
+			# <p>综合排名：第<b style="color:#F60;" _hover-ignore="1">193</b>位</p>
+			pattern = re.compile('.*?<p>综合排名：第<b style="color:#F60;">(.*?)</b>位</p>.*?')
+			result = re.findall(pattern,content)
+			if len(result) >0 :
+				rank = result[0]
+
+			# <p>品牌价值：<a href="//jiazhi.paizi.com/s?keys=惠普" style="color:#F60; font-weight:bold;" target="_blank">41832</a>百万元
+			pattern = re.compile('.*?<p>品牌价值：<a href=".*?" style="color:#F60; font-weight:bold;" target="_blank">(.*?)</a>(.*?).*?')
+			result = re.findall(pattern,content)
+			if len(result) == 2 :
+				price = str(result[0],result[1])
+	
+			# <p>估算销量：<b style="color:#F60;">4831</b>件/月</p>
+			pattern = re.compile('.*?<p>估算销量：<b style="color:#F60;">(.*?)</b>(.*?)</p>.*?')
+			result = re.findall(pattern,content)
+			if len(result) == 2 :
+				sales = str(result[0],result[1])
+
+			# <p>品牌人气：<em id="zs_pprq">222811</em>
+			pattern = re.compile('.*?<p>品牌人气：<em id="zs_pprq">(.*?)</em>.*?')
+			result = re.findall(pattern,content)
+			if len(result) > 0 :
+				renqi = result[0]
+
+			return [name,zhutiguimo,danweixingzhi,zichanleixing,chuangjianshijian,boss,address,zizhirongyu,score,price,rank,sales,renqi]
+		except:
+			print '解析品牌属性出错'
+			return []
+
+	def resolvePageName(self,content):
+		try:
+			pattern = re.compile('.*?<p style="height: 30px;line-height: 20px;">(.*?)</p>.*?')
+			return re.findall(pattern,content)
+		except:
+			print '解析品牌页面出错'
+			return []
 
 	def getPageContext(self,url):
 		# print '爬取页面',url
@@ -101,7 +213,6 @@ class Spider:
 			return []	
 
 	def getMaxPage(self,content):
-		# <div class="pages clear"><a class="a1">182条</a> <a href="d5802.html" class="a1">上一页</a> <span>1</span> <a href="d5802-2.html">2</a> <a href="d5802-3.html">3</a> <a href="d5802-4.html">4</a> <a href="d5802-5.html">5</a> ..<a href="d5802-7.html">7</a> <a href="d5802-2.html" class="a1">下一页</a></div>
 		try:
 			pattern = re.compile('.*?\.\.<a href=".*?">(\d)</a>.*?')
 			index = re.findall(pattern,content)
@@ -116,11 +227,18 @@ class Spider:
 	def resolveLastPage(self,content):
 		# <div class="c03"><p>名称：<a href="
 		try:
-			pattern = re.compile('.*?<div class="c03"><p>名称：<a href=".*?">(.*?)</a></p><p>口碑：.*?<a class="c07" href="(.*?)">\> 详情</a>.*?')
+			pattern = re.compile('.*?<p>名称：<a href="(.*?)">(.*?)</a></p>.*?')
 			return re.findall(pattern,content)
 		except:
 			print "解析出错"
 			return []	
+
+	def resolveAboutPage(self,content):
+		try:
+			pattern = re.compile('.*?<a href="(.*?)">关于.*?')
+			return re.findall(pattern,content)[0]
+		except:
+			return []
 
 spider = Spider()
 spider.run()
