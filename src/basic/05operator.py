@@ -53,3 +53,21 @@ print('a' not in 'abc')
 
 print('a' is 'a')
 print('a' is not 'a')
+
+# 运算符优先级
+
+'''
+**
+~+-
+*/%//
++-
+>><<
+&
+^|
+<=<>>=
+<>==!=
+= %= /= //= -= += *= **=
+is is not
+in not in
+not or and
+'''
