@@ -18,4 +18,4 @@ print(str1)
 # 内建函数
 # print(capitalize('hello'))
 # center()
-count('hello')
+# count('hello')
