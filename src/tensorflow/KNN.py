@@ -42,3 +42,6 @@ with tf.Session() as sess:
             accuracy += 1./len(Xte)
     print("Done!")
     print("Accuracy:", accuracy)
+
+writer = tf.summary.FileWriter("/log",tf.get_default_graph())
+writer.close()

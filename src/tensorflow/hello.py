@@ -4,8 +4,15 @@
 # sess = tf.Session()
 # print(sess.run(hello))
 
-import tensorflow as tf
 
-a = tf.constant('hello')
+import tensorflow as tf
+# 引入TensorFlow模块，并且起一个别名
+
+# 定义一个常量
+a = tf.constant('hello, TensorFlow!') 
+# 创建会话，并输出
 with tf.Session() as sess:
     print(sess.run(a))
+    
+writer = tf.summary.FileWriter("/log",tf.get_default_graph())
+writer.close()

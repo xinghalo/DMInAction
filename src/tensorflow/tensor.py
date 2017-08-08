@@ -12,3 +12,6 @@ sess = tf.Session()
 print(sess.run(a))
 print(sess.run(b))
 print(sess.run(c))
+
+writer = tf.summary.FileWriter("/log",tf.get_default_graph())
+writer.close()

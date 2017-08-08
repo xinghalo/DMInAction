@@ -55,3 +55,6 @@ with tf.Session() as sess:
     # Calculate accuracy
     accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
     print("Accuracy:", accuracy.eval({x: mnist.test.images, y: mnist.test.labels}))
+
+writer = tf.summary.FileWriter("/log",tf.get_default_graph())
+writer.close()
