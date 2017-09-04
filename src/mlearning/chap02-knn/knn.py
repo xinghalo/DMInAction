@@ -3,13 +3,13 @@ from numpy import *
 import operator
 
 def autoNorm(dataSet):
-	minValue = dataSet.min(0)
-	maxValue = dataSet.max(0)
-	ranges = maxValue - minValue
+	minValue = dataSet.min(0) # 寻找最小值
+	maxValue = dataSet.max(0) # 寻找最大值
+	ranges = maxValue - minValue # 最大值-最小值
 	normDataSet = zeros(shape(dataSet))
 	m = dataSet.shape[0]
 	normDataSet = dataSet - tile(minValue,(m,1))
-	normDataSet = normDataSet/tile(ranges,(m,1))
+	normDataSet = normDataSet/tile(ranges,(m,1)) # 值 - 最小值 ／ 最大值 - 最小值
 	return normDataSet, ranges, minValue
 
 def file2matrix(filename):
