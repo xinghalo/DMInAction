@@ -2,6 +2,33 @@
 from numpy import *
 import operator
 
+def classifyPerson():
+	resultList = ['not at all','in small doses','in large doses']
+	percentTats = float(raw_input("percentage of time spent playing video games?"))
+	ffMiles = float(raw_input("frequent filter miles earned per year?"))
+	iceCream = float(raw_input("liters of ice cream consumed per year?"))
+	datingDataMat,datingLables = file2matrix('datingTestSet2.txt')
+	normMat,ranges,minVals = autoNorm(datingDataMat)
+	inArr = array([ffMiles,percentTats,iceCream])
+	classifierResult = classify0((inArr-minVals)/ranges,normMat,datingLables,3)
+	print "You will probably like this person:", resultList[classifierResult-1]
+
+def datingClassTest():
+	hoRatio = 0.10
+	datingDataMat,datingLabels = file2matrix('datingTestSet2.txt')
+	normMat,ranges,minVals = autoNorm(datingDataMat)
+	m = normMat.shape[0]
+	numTestVecs = int(m*hoRatio)
+	errorCount = 0.0
+	for i in range(numTestVecs):
+		classifierResult = classify0(normMat[i,:],normMat[numTestVecs:m,:],datingLabels[numTestVecs:m],3)
+		print "the classifier came back with: %d, the real answer is: %d" %(classifierResult,datingLabels[i])
+
+		if(classifierResult != datingLabels[i]) : errorCount+=1.0
+
+	print "total error rate is : %f " %(errorCount/float(numTestVecs))
+
+
 def autoNorm(dataSet):
 	minValue = dataSet.min(0) # 寻找最小值
 	maxValue = dataSet.max(0) # 寻找最大值
@@ -42,7 +69,7 @@ def classify0(inX, dataSet, labels, k):
 
 	# 复制输入的向量，然后做减法
 	diffMat = tile(inX, (dataSetSize,1)) - dataSet
-	print diffMat
+	# print diffMat
 	sqDiffMat = diffMat**2
 	sqDistances = sqDiffMat.sum(axis=1)
 	distances = sqDistances**0.5

@@ -1,0 +1,3 @@
+import knn
+
+knn.datingClassTest()
