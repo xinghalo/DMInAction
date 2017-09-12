@@ -1,5 +1,36 @@
 #-*- coding: UTF-8 -*-
 from math import log
+import operator
+
+def majorityCnt(classList):
+    classCount = {}
+    for vote in classList:
+        if vote not in classCount.keys(): classCount[vote] = 0
+        classCount[vote] += 1
+    sortedClassCount = sorted(classCount.iteritems(),key=operator.itemgetter(1),reverse=True)
+    return sortedClassCount[0][0]
+
+def chooseBestFeautreToSplit(dataSet):
+    numFeatures = len(dataSet[0])-1
+    baseEntropy = calcShannonEnt(dataSet)
+    bestInfoGain = 0.0
+    bestFeature = -1
+    for i in range(numFeatures):
+        featList = [example[i] for example in dataSet]
+        # 获得每一列不同的值
+        uniqueVals = set(featList)
+        newEntropy = 0.0
+        for value in uniqueVals:
+            # 针对每列不同的值切分数据集
+            subDataSet = splitDataSet(dataSet,i,value)
+            prob = len(subDataSet)/float(len(dataSet))
+            # 新的香农商等于 每部分的概率*子集的香农商
+            newEntropy += prob * calcShannonEnt(subDataSet)
+        infoGain = baseEntropy - newEntropy
+        if (infoGain > bestInfoGain):
+            bestInfoGain = infoGain
+            bestFeature = i
+    return bestFeature
 
 def splitDataSet(dataSet, axis, value):
     retDataSet = []
