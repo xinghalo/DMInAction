@@ -18,4 +18,7 @@ print trees.splitDataSet(myDat,1,1)
 print trees.splitDataSet(myDat,0,0)
 '''
 
-print trees.chooseBestFeautreToSplit(myDat)
+#print trees.chooseBestFeautreToSplit(myDat)
+
+myTree = trees.createTree(myDat, labels)
+print myTree
