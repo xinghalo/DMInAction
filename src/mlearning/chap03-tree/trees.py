@@ -2,6 +2,33 @@
 from math import log
 import operator
 
+def createTree(dataSet, lables):
+    print "----------------------------"
+    print dataSet
+    print lables
+    print "----------------------------"
+    # 得到所有的标签
+    classList = [example[-1] for example in dataSet]
+    # 如果类别相同，则停止继续划分
+    # 对比 第一个出现的标签是否 等于 全部标签的数量
+    if classList.count(classList[0]) == len(classList):
+        return classList[0]
+    # 遍历返回信息熵最高的
+    if len(dataSet[0]) == 1:
+        return majorityCnt(classList)
+    bestFeat = chooseBestFeautreToSplit(dataSet)
+    print bestFeat
+
+    bestFeatLabel = lables[bestFeat]
+    myTree = {bestFeatLabel:{}}
+    del(lables[bestFeat])
+    featValues = [example[bestFeat] for example in dataSet]
+    uniqueVals = set(featValues)
+    for value in uniqueVals:
+        subLabels = lables[:]
+        myTree[bestFeatLabel][value] = createTree(splitDataSet(dataSet, bestFeat, value),subLabels)
+    return myTree
+
 def majorityCnt(classList):
     classCount = {}
     for vote in classList:
