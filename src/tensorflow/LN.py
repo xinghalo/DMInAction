@@ -1,6 +1,8 @@
-import tensorflow as tf
-import numpy
 import matplotlib.pyplot as plt
+import numpy
+
+from src import tensorflow as tf
+
 rng = numpy.random
 
 # Parameters

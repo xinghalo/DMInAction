@@ -1,12 +1,14 @@
 #author: oger
 
 from __future__ import print_function
-import sys
+
 import linecache
-import numpy as np
-import tensorflow as tf
-import time
 import math
+import time
+
+import numpy as np
+
+from src import tensorflow as tf
 
 train_file = "data/dbpedia.train"
 test_file = "data/dbpedia.test"

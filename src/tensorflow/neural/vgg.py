@@ -1,8 +1,9 @@
 # Copyright (c) 2015-2017 Anish Athalye. Released under GPLv3.
 
-import tensorflow as tf
 import numpy as np
 import scipy.io
+
+from src import tensorflow as tf
 
 VGG19_LAYERS = (
     'conv1_1', 'relu1_1', 'conv1_2', 'relu1_2', 'pool1',

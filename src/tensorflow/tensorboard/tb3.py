@@ -1,4 +1,4 @@
-import tensorflow as tf
+from src import tensorflow as tf
 
 with tf.name_scope("input1"):
 	input1 = tf.constant([1.0,2.0,3.0],name="input1")

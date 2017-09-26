@@ -1,4 +1,4 @@
-import tensorflow as tf
+from src import tensorflow as tf
 
 sess = tf.Session()
 

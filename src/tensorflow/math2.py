@@ -1,4 +1,5 @@
-import tensorflow as tf
+from src import tensorflow as tf
+
 a = tf.placeholder(tf.int16)
 b = tf.placeholder(tf.int16)
 add = tf.add(a, b)

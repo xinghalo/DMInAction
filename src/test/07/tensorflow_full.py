@@ -1,5 +1,5 @@
 # import numpy as np
-import tensorflow as tf
+from src import tensorflow as tf
 
 # Model parameters
 W = tf.Variable([.3], dtype=tf.float32)

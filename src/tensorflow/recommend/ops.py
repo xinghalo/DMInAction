@@ -1,4 +1,4 @@
-import tensorflow as tf
+from src import tensorflow as tf
 
 
 def inference_svd(user_batch, item_batch, user_num, item_num, dim=5, device="/cpu:0"):

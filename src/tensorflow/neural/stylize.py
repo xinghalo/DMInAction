@@ -1,13 +1,12 @@
 # Copyright (c) 2015-2017 Anish Athalye. Released under GPLv3.
 
-import vgg
-
-import tensorflow as tf
-import numpy as np
-
 from sys import stderr
 
+import numpy as np
 from PIL import Image
+
+import vgg
+from src import tensorflow as tf
 
 CONTENT_LAYERS = ('relu4_2', 'relu5_2')
 STYLE_LAYERS = ('relu1_1', 'relu2_1', 'relu3_1', 'relu4_1', 'relu5_1')

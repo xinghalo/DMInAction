@@ -1,4 +1,4 @@
-import tensorflow as tf
+from src import tensorflow as tf
 
 g1 = tf.Graph()
 with g1.as_default():

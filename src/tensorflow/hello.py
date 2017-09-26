@@ -5,7 +5,8 @@
 # print(sess.run(hello))
 
 
-import tensorflow as tf
+from src import tensorflow as tf
+
 # 引入TensorFlow模块，并且起一个别名
 
 # 定义一个常量

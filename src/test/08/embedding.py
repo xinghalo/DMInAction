@@ -1,5 +1,6 @@
-import tensorflow as tf
 import numpy as np
+
+from src import tensorflow as tf
 
 np.random.seed(1)
 

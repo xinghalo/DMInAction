@@ -1,10 +1,12 @@
 #-*- coding: UTF-8 -*- 
+import os
+import re
+import sys
 import urllib
 import urllib2
-import re
+
 import tool
-import os
-import sys
+
 reload(sys)
 sys.setdefaultencoding('utf-8') 
  

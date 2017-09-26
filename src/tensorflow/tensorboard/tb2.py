@@ -1,4 +1,4 @@
-import tensorflow as tf
+from src import tensorflow as tf
 
 with tf.variable_scope("foo"):
 	a = tf.get_variable("bar",[1])

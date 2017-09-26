@@ -1,5 +1,6 @@
-import tensorflow as tf
 from numpy.random import RandomState
+
+from src import tensorflow as tf
 
 batch_size = 8
 

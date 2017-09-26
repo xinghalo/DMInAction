@@ -1,10 +1,11 @@
 from __future__ import print_function
 
 import numpy as np
-import tensorflow as tf
 
+from src import tensorflow as tf
 # Import MNIST data
-from tensorflow.examples.tutorials.mnist import input_data
+from src.tensorflow import input_data
+
 mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
 
 # In this example, we limit mnist data

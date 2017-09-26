@@ -1,6 +1,7 @@
-import knn
 import matplotlib.pyplot as plt
 import numpy as np
+
+import knn
 
 datingDataMat,datingLabels = knn.file2matrix('datingTestSet2.txt')
 

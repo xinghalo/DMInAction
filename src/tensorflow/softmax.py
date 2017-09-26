@@ -2,9 +2,9 @@
 '''
 线性层的softmax回归模型识别手写字
 '''
-import tensorflow as tf 
-import numpy as np 
 import input_data
+
+from src import tensorflow as tf
 
 #mnist数据输入
 mnist = input_data.read_data_sets("MNIST_data/", one_hot = True)
