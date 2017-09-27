@@ -89,3 +89,29 @@ print 'hello'.find('e')
 print 'hello'.rfind('e')
 print 'hello'.index('e')
 print 'hello'.rindex('e')
+print 'hello'.join('world')
+print 'hello, world'.split(',')
+print 'hello, \nwor\nld\n'.splitlines()
+print 'hello, \nwor\nld\n'.splitlines(True) # 是否保留换行符
+print 'Hello'.lower()
+print 'Hello'.upper()
+# print 'Hello'.titlecase()
+print 'Hello    '.strip()
+print 'Hello'.replace('l','a')
+
+# 链表与字符串的差异
+query = 'Who knows?'
+beatles = ['John', 'Paul', 'George', 'Ringo']
+print query[2]
+print beatles[2]
+print query[:2]
+print beatles[:2]
+print query + " I don't"
+print beatles + ['Brian']
+beatles[0] = "John Lennon"
+print beatles
+del beatles[-1]
+print beatles
+
+# query[0]='F'
+# print query
